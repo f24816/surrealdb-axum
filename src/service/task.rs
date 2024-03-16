@@ -1,6 +1,7 @@
 use crate::{Db, error::{ApiError, ApiResult, Error}};
 
 use serde::{Deserialize, Serialize};
+use serde_json::json;
 use surrealdb::sql::Thing;
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
@@ -62,10 +63,7 @@ impl<'a> TaskService<'a> {
     pub async fn rename_task(&self, id: String, title: String) -> ApiResult<Task> {
         let updated: Option<Task> = self.db
             .update(("tasks", &id))
-            .content(Task {
-                id: None,
-                title,
-            })
+            .merge(json!({ "title": title }))
             .await
             .map_err(|source| ApiError {
                 error: Error::SurrealDb { source: source.to_string() },

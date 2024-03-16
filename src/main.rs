@@ -28,9 +28,6 @@ async fn main() -> Result<()> {
 
     // Connect to the database
     DB.connect::<Mem>(()).await?;
-    println!("->> DB connected in memory");
-    let version = DB.version().await?;
-    println!("->> DB version: {version}");
     // Select a specific namespace / database
     DB.use_ns("namespace").use_db("database").await?;
 
