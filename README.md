@@ -1,4 +1,4 @@
-## Working with SurrealDB and Axum
+## Working with SurrealDB and Axum (Not funcional)
 
 This project is a simple example of how to use SurrealDB with the Axum web framework.
 
